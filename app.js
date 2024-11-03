@@ -6,7 +6,7 @@ const compression = require('compression');
 const morgan = require('morgan');
 require('dotenv').config();
 
-const errorHandler = require('./src/middlewares/errorHandler');
+const errorHandler = require('./src/middleware/errorHandler');
 const routes = require('./src/routes');
 
 const app = express();
@@ -27,17 +27,3 @@ app.use('/api', routes);
 app.use(errorHandler);
 
 module.exports = app;
-
-// src/config/database.js
-const { Pool } = require('pg');
-
-const pool = new Pool({
-  user: process.env.DB_USER,
-  host: process.env.DB_HOST,
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASS,
-  port: process.env.DB_PORT,
-  ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
-
-module.exports = pool;
